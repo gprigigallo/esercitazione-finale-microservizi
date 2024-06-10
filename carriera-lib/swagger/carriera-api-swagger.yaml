@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: API Modulo Carriera
+  version: 1.0.0
+  description: API per gestire la carriera accademica degli studenti
+paths:
+  /carriera:
+    get:
+      summary: Restituisce la lista degli esami con relativo stato
+      responses:
+        '200':
+          description: Lista degli esami restituita correttamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Carriera'
+  /sostenimento-esame:
+    post:
+      summary: Permette il sostenimento di un esame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Esame'
+      responses:
+        '200':
+          description: Esame sostenuto correttamente
+        '400':
+          description: Richiesta non valida
+components:
+  schemas:
+    Carriera:
+      type: object
+      properties:
+        Matricola:
+          type: string
+        ListaEsami:
+          type: array
+          items:
+            $ref: '#/components/schemas/Esame'
+    Esame:
+      type: object
+      properties:
+        ID:
+          type: string
+        Voto:
+          type: integer

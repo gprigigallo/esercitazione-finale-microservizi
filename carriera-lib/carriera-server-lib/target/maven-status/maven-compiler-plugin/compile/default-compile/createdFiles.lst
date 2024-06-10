@@ -1,0 +1,3 @@
+com\nttdata\carriera\server\models\Carriera.class
+com\nttdata\carriera\server\models\Esame.class
+com\nttdata\swagger\carriera\server\api\DefaultApi.class
