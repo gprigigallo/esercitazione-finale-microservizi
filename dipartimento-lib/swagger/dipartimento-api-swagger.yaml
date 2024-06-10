@@ -1,0 +1,197 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Menu API
+servers:
+  - url: "http://localhost:8080/"
+    description: "Development server"
+tags:
+  - name: Modulo Dipartimento
+    description: manipolazione degli esami
+paths:
+  /esami:
+    get:
+      operationId: getEsami
+      summary: Retrieve Esami List
+      tags:
+        - Esami Crud
+      responses:
+        '200':
+          $ref: '#/components/responses/response-esame'
+        '400':
+          $ref: '#/components/responses/response-bad-request-400'
+        '401':
+          $ref: '#/components/responses/response-unauthorized-401'
+        '403':
+          $ref: '#/components/responses/response-forbidden-403'
+        '404':
+          $ref: '#/components/responses/response-not-found-404'
+        '500':
+          $ref: '#/components/responses/response-internal-server-error-500'
+  /esami/add:
+    post:
+      operationId: AddEsame
+      summary: Add esame singolo
+      tags:
+        - Esami Crud
+      requestBody:
+        description: Body Creazione Ordine
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/model-esame'
+      responses:
+        '200':
+          $ref: '#/components/responses/response-ok-200'
+        '400':
+          $ref: '#/components/responses/response-bad-request-400'
+        '401':
+          $ref: '#/components/responses/response-unauthorized-401'
+        '403':
+          $ref: '#/components/responses/response-forbidden-403'
+        '404':
+          $ref: '#/components/responses/response-not-found-404'
+        '500':
+          $ref: '#/components/responses/response-internal-server-error-500'
+  /esami/delete/{id}:
+    delete:
+      operationId: eliminaEsame
+      summary: Elimina Esame
+      tags:
+        - Esami Crud
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/response-ok-200'
+        '400':
+          $ref: '#/components/responses/response-bad-request-400'
+        '401':
+          $ref: '#/components/responses/response-unauthorized-401'
+        '403':
+          $ref: '#/components/responses/response-forbidden-403'
+        '404':
+          $ref: '#/components/responses/response-not-found-404'
+        '500':
+          $ref: '#/components/responses/response-internal-server-error-500'
+  /esami/update:
+    put:
+      operationId: AggiornaEsame
+      summary: aggiorna un esame
+      tags:
+        - Esami Crud
+      requestBody:
+        description: Body Creazione Ordine
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/model-esame'
+      responses:
+        '200':
+          $ref: '#/components/responses/response-ok-200'
+        '400':
+          $ref: '#/components/responses/response-bad-request-400'
+        '401':
+          $ref: '#/components/responses/response-unauthorized-401'
+        '403':
+          $ref: '#/components/responses/response-forbidden-403'
+        '404':
+          $ref: '#/components/responses/response-not-found-404'
+        '500':
+          $ref: '#/components/responses/response-internal-server-error-500'
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+      description: id esame
+  responses:
+    response-ok-200:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-base'
+    response-bad-request-400:
+      description: Invalid Input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-base'
+    response-unauthorized-401:
+      description: Authentication token required
+    response-forbidden-403:
+      description: Forbidden
+    response-not-found-404:
+      description: The requested resource could not be found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-base'
+    response-internal-server-error-500:
+      description: Internal Server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-base'
+    response-esame:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-esami'
+    response-menu-add:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response-esami'
+
+  schemas:
+    response-base:
+      type: object
+      properties:
+        success:
+          type: boolean
+        resultCode:
+          type: integer
+        message:
+          type: string
+        errors:
+          type: string
+        transactionId:
+          type: string
+        type:
+          type: string
+      required:
+        - success
+        - resultCode
+        - type
+    response-esami:
+      allOf:
+        - $ref: '#/components/schemas/response-base'
+        - type: object
+          properties:
+            returnValue:
+              $ref: '#/components/schemas/model-esami-all'
+    model-esami-all:
+      type: object
+      properties:
+        listaEsami:
+          type: array
+          items:
+            $ref: '#/components/schemas/model-esame'
+    model-esame:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        cfu:
+          type: integer

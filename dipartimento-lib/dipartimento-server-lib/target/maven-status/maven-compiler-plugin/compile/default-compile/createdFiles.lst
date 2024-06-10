@@ -1,0 +1,5 @@
+com\nttdata\dipartimento\server\models\ModelEsamiAll.class
+com\nttdata\dipartimento\server\models\ResponseBase.class
+com\nttdata\dipartimento\server\models\ModelEsame.class
+com\nttdata\swagger\dipartimento\server\api\EsamiCrudApi.class
+com\nttdata\dipartimento\server\models\ResponseEsami.class
