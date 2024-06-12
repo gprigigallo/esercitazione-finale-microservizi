@@ -1,1 +1,3 @@
-com\nttdata\cassaapi\App.class
+com\nttdata\dipartimentoapi\costanti\Costanti.class
+com\nttdata\dipartimentoapi\App.class
+com\nttdata\dipartimentoapi\controller\DipartimentoController.class
